@@ -13,9 +13,11 @@
     
     <title>CyberNurse Turnos</title>
     
-    <!-- ICONO DE LA APP (Integrado en Base64 para no necesitar archivos extra) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEyOCIgZmlsbD0iIzRmNDZlNSIvPjxwYXRoIGQ9Ik0yNTYgMTEyYy03OS41IDAtMTQ0IDY0LjUtMTQ0IDE0NHM2NC41IDE0NCAxNDQgMTQ0IDE0NC02NC41IDE0NC0xNDQtNjQuNS0xNDQtMTQ0LTE0NHptMCAyNTZjLTYxLjkgMC0xMTItNTAuMS0xMTItMTEyczUwLjEtMTEyIDExMi0xMTIgMTEyIDUwLjEgMTEyIDExMi01MC4xIDExMi0xMTIgMTEyeiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTM2OCAyMzJoLTg4di04OGMwLTEzLjMtMTAuNy0yNC0yNC0yNHMtMjQgMTAuNy0yNCAyNHY4OGgtODhjLTEzLjMgMC0yNCAxMC43LTI0IDI0czEwLjcgMjQgMjQgMjRoODh2ODhjMCAxMy4zIDEwLjcgMjQgMjQgMjRzMjQtMTAuNyAyNC0yNHYtODhoODhjMTMuMyAwIDI0LTEwLjcgMjQtMjRzLTEwLjctMjQtMjQtMjR6IiBmaWxsPSIjZmZmZmZmIi8+PC9zdmc+">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEyOCIgZmlsbD0iIzRmNDZlNSIvPjxwYXRoIGQ9Ik0yNTYgMTEyYy03OS41IDAtMTQ0IDY0LjUtMTQ0IDE0NHM2NC41IDE0NCAxNDQgMTQ0IDE0NC02NC41IDE0NC0xNDQtNjQuNS0xNDQtMTQ0LTE0NHptMCAyNTZjLTYxLjkgMC0xMTItNTAuMS0xMTItMTEyczUwLjEtMTEyIDExMi0xMTIgMTEyIDUwLjEgMTEyIDExMi01MC4xIDExMi0xMTIgMTEyeiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTM2OCAyMzJoLTg4di04OGMwLTEzLjMtMTAuNy0yNC0yNC0yNHMtMjQgMTAuNy0yNCAyNHY4OGgtODhjLTEzLjMgMC0yNCAxMC43LTI0IDI0czEwLjcgMjQgMjQgMjRoODh2ODhjMCAxMy4zIDEwLjcgMjQgMjQgMjRzMjQtMTAuNyAyNC0yNHYtODhoODhjMTMuMyAwIDI0LTEwLjcgMjQtMjRzLTEwLjctMjQtMjQtMjR6IiBmaWxsPSIjZmZmZmZmIi8+PC9zdmc+">
+    <!-- ICONO DE LA APP (Formato SVG Inline - Solución para compatibilidad de instalación) -->
+    <!-- Se usa %23 en lugar de # para el color hexadecimal para evitar errores de URL -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234f46e5'/><path d='M368 232h-88v-88c0-13.3-10.7-24-24-24s-24 10.7-24 24v88h-88c-13.3 0-24 10.7-24 24s10.7 24 24 24h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24v-88h88c13.3 0 24-10.7 24-24s-10.7-24-24-24z' fill='%23ffffff'/></svg>">
+    
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234f46e5'/><path d='M368 232h-88v-88c0-13.3-10.7-24-24-24s-24 10.7-24 24v88h-88c-13.3 0-24 10.7-24 24s10.7 24 24 24h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24v-88h88c13.3 0 24-10.7 24-24s-10.7-24-24-24z' fill='%23ffffff'/></svg>">
 
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
