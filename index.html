@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberNurse</title>
+    <meta name="description" content="Portafolio de Juan Cobeñas - CyberNurse. Enfermero y Desarrollador de Soluciones Digitales.">
+    
+    <!-- 1. Cargar Tailwind CSS (Para el diseño) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Configurar colores personalizados -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
+                            500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+                        },
+                        indigo: {
+                            500: '#6366f1', 600: '#4f46e5',
+                        }
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- 3. Cargar Iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Estilos CSS extra para el efecto Glass (Vidrio) -->
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ajustes para modo oscuro */
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(219, 234, 254, 0.5);
+        }
+
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-900 bg-slate-50 dark:bg-slate-950 dark:text-white transition-colors duration-500 selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- FONDO ANIMADO GLOBAL -->
+    <div class="fixed inset-0 pointer-events-none -z-20 opacity-40 dark:opacity-20 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-indigo-300 dark:bg-indigo-900 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] bg-sky-300 dark:bg-sky-900 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center group cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="bg-blue-600 dark:bg-blue-500 p-1.5 rounded-lg mr-2 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                        <i data-lucide="bot" class="text-white w-5 h-5"></i>
+                    </div>
+                    <span class="text-slate-800 dark:text-white font-sans text-xl font-bold tracking-tight">
+                        Cyber<span class="text-blue-600 dark:text-blue-400">Nurse</span>
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <div class="flex items-baseline space-x-1">
+                        <a href="#hero" class="nav-link px-3 py-2 rounded-full text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">Inicio</a>
+                        <a href="#about" class="nav-link px-3 py-2 rounded-full text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">Sobre Mí</a>
+                        <a href="#skills" class="nav-link px-3 py-2 rounded-full text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">Metodología</a>
+                        <a href="#portfolio" class="nav-link px-3 py-2 rounded-full text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">Proyectos</a>
+                        <a href="#contact" class="nav-link px-3 py-2 rounded-full text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">Contacto</a>
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <div class="pl-4 ml-4 border-l border-slate-200 dark:border-slate-700">
+                        <button id="theme-toggle" class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-blue-400 hover:text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 transition-all shadow-sm">
+                            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                            <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-3">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-blue-400">
+                         <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                         <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#hero" class="block px-3 py-3 rounded-xl text-base font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">Inicio</a>
+                <a href="#about" class="block px-3 py-3 rounded-xl text-base font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">Sobre Mí</a>
+                <a href="#skills" class="block px-3 py-3 rounded-xl text-base font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">Metodología</a>
+                <a href="#portfolio" class="block px-3 py-3 rounded-xl text-base font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">Proyectos</a>
+                <a href="#contact" class="block px-3 py-3 rounded-xl text-base font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10">
+        <!-- HERO SECTION -->
+        <section id="hero" class="pt-32 pb-20 md:pt-48 md:pb-32 flex items-center relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="text-center md:text-left md:max-w-4xl">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 mb-6 backdrop-blur-sm">
+                        <span class="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-blue-400 mr-2 animate-pulse"></span>
+                        <span class="text-sm font-semibold text-blue-700 dark:text-blue-300 tracking-wide uppercase">SALUD + AI</span>
+                    </div>
+                    
+                    <h1 class="text-5xl tracking-tighter font-extrabold text-slate-900 dark:text-white sm:text-6xl md:text-7xl mb-6">
+                        Innovación rápida para<br />
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                            problemas clínicos.
+                        </span>
+                    </h1>
+                    
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 sm:text-xl md:max-w-2xl leading-relaxed">
+                        Soy <span class="font-semibold text-slate-900 dark:text-white">Juan Cobeñas</span>. Transformo mi experiencia asistencial en soluciones digitales usando <span class="text-blue-600 dark:text-blue-400 font-semibold">Inteligencia Artificial</span> como motor de construcción.
+                    </p>
+                    
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#portfolio" class="group relative flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-blue-600 rounded-2xl overflow-hidden transition-all hover:bg-blue-700 hover:scale-[1.02] shadow-lg shadow-blue-500/30">
+                            <span class="relative z-10 flex items-center">
+                                Ver Soluciones <i data-lucide="heart-pulse" class="ml-2 w-5 h-5 group-hover:animate-ping"></i>
+                            </span>
+                        </a>
+                        
+                        <a href="#contact" class="glass-card flex items-center justify-center px-8 py-4 text-lg font-bold text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-all hover:scale-[1.02]">
+                            Contactar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                    <!-- Image -->
+                    <div class="lg:col-span-5 mb-10 lg:mb-0 relative">
+                         <div class="absolute inset-0 bg-blue-600 dark:bg-blue-500 blur-[60px] opacity-20 rounded-full"></div>
+                         <div class="glass-card p-3 relative rotate-3 hover:rotate-0 transition-transform duration-500 rounded-3xl">
+                            <div class="aspect-[4/5] bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden relative flex items-center justify-center">
+                                <img src="img/jaccpic.png" class="w-full h-full object-cover">
+                                                                                               
+                                <div class="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-lg flex items-center gap-3">
+                                    <div class="bg-blue-100 dark:bg-blue-900/50 p-2 rounded-xl text-blue-600 dark:text-blue-400">
+                                        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">Experiencia</p>
+                                        <p class="text-sm font-bold text-slate-900 dark:text-white">Asistencial + Código</p>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+
+                    <!-- Text -->
+                    <div class="lg:col-span-7">
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl mb-6">
+                            De la sala de <span class="text-blue-600 dark:text-blue-400">Emergencias</span> al <span class="text-blue-600 dark:text-blue-400">Desarrollo Web</span>
+                        </h2>
+                        
+                        <div class="space-y-6 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                            <p>
+                                Haber trabajado en el entorno asistencial me dio una visión clara de los retos reales del trabajo clínico: <strong class="text-blue-700 dark:text-blue-300">empatía bajo presión y resolución crítica de problemas.</strong>
+                            </p>
+                            <p>
+                                Con el tiempo, comprendí que el software clínico no estaba alineado con la práctica asistencial cotidiana. Decidí enfocarme en construir soluciones que sí lo estuvieran.
+                            </p>
+                            <div class="p-6 mt-4 glass-card border-l-4 border-l-blue-500 rounded-r-xl">
+                                <h3 class="flex items-center text-xl font-bold text-slate-900 dark:text-white mb-2">
+                                    <i data-lucide="bot" class="mr-2 text-blue-600 w-5 h-5"></i> El Factor IA
+                                </h3>
+                                <p class="text-base">
+                                    Descubrí que la <strong>Inteligencia Artificial</strong> puede ser una aliada poderosa cuando se combina con la <strong>experiencia asistencial</strong>. Yo aporto el entendimiento del <strong>entorno clínico</strong>; la IA me ayuda a convertir esas necesidades en herramientas funcionales.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
+                    Metodología Híbrida
+                    </h2>
+                    <p class="mt-4 text-slate-600 dark:text-slate-400">Dos mundos que convergen para crear mejores productos.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card p-8 group hover:border-blue-400/50 transition-all hover:shadow-lg rounded-3xl">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="p-4 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="workflow" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Workflow Digital</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-blue-500 mr-3"></div> Desarrollo Asistido por IA
+                            </li>
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-blue-500 mr-3"></div> Prompt Engineering Clínico
+                            </li>
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-blue-500 mr-3"></div> Prototipado Rápido
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card p-8 group hover:border-indigo-400/50 transition-all hover:shadow-lg rounded-3xl">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="p-4 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                                <i data-lucide="activity" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Experiencia Real</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-indigo-500 mr-3"></div> Triaje y Emergencias
+                            </li>
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-indigo-500 mr-3"></div> Monitoreo y vigilancia clínica
+                            </li>
+                            <li class="flex items-center text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl">
+                                <div class="h-2 w-2 rounded-full bg-indigo-500 mr-3"></div> Atención y continuidad del cuidado
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
+                        Portafolio de Soluciones
+                        </h2>
+                        <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl">
+                        Herramientas diseñadas para resolver fricciones reales en el flujo de trabajo clínico.
+                        </p>
+                    </div>
+                    <a href="https://github.com/cybernurse-lab" target="_blank" class="hidden md:flex items-center text-blue-600 font-bold hover:underline mt-4 md:mt-0">
+                        Ver GitHub <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <a href="goteo.html" style="text-decoration:none; color:inherit; display:block;">
+                    <div class="glass-card overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group h-full flex flex-col rounded-3xl">
+                        <div class="p-6 bg-blue-600 text-white relative overflow-hidden">
+                            <i data-lucide="database" class="absolute top-0 right-0 opacity-10 transform rotate-12 scale-150 w-32 h-32 p-4"></i>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <div class="bg-white/20 backdrop-blur-md p-3 rounded-2xl">
+                                    <i data-lucide="database" class="w-8 h-8 text-white"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-6 relative z-10">Calculadora IV Pro</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed flex-1">Web App progresiva para calcular goteo de forma rápida y segura en escenarios clínicos. Pensada para uso asistencial y con interfaz de alto contraste.</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600">Cálculo Clínico</span>
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600">Precisión</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Project 2 -->
+                    <a href="turnos.html" style="text-decoration:none; color:inherit; display:block;">
+                    <div class="glass-card overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group h-full flex flex-col rounded-3xl">
+                        <div class="p-6 bg-indigo-600 text-white relative overflow-hidden">
+                            <i data-lucide="terminal" class="absolute top-0 right-0 opacity-10 transform rotate-12 scale-150 w-32 h-32 p-4"></i>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <div class="bg-white/20 backdrop-blur-md p-3 rounded-2xl">
+                                    <i data-lucide="terminal" class="w-8 h-8 text-white"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-6 relative z-10">Gestor de turnos</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed flex-1">Sistema de gestión de turnos basado en reglas para mejorar la organización y evitar cargas desbalanceadas.</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600">Rotaciones</span>
+                                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600">Turnos</span>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Project 3 (Placeholder) -->
+                    <div class="glass-card border-dashed border-2 border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center p-8 text-center min-h-[300px] hover:border-blue-400 transition-colors cursor-pointer group rounded-3xl">
+                        <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="code" class="w-8 h-8 text-slate-400 group-hover:text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-700 dark:text-slate-300">Próximo Proyecto</h3>
+                        <p class="text-sm text-slate-500 mt-2">Cocinando algo nuevo...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <!-- Text -->
+                    <div>
+                        <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 mb-6">
+                           <span class="text-sm font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wide">Networking</span>
+                        </div>
+                        <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
+                          Hablemos de tu próximo proyecto.
+                        </h2>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                          ¿Tienes una idea clínica o tecnológica? Charlemos.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <a href="mailto:cybernurse.lab@gmail.com" class="flex items-center p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-blue-400 transition-colors group">
+                                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl mr-4 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="mail" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 font-semibold">Correo Electrónico</p>
+                                    <p class="text-lg font-bold text-slate-900 dark:text-white">cybernurse.lab@gmail.com</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="glass-card p-8 md:p-10 relative rounded-3xl">
+                        <!-- RECUERDA: Reemplaza TU_CODIGO_AQUI con tu código de Formspree -->
+                        <form action="https://formspree.io/f/mvgerlrg" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tu Nombre</label>
+                                <input type="text" name="name" required placeholder="Ejemplo: Adolf" class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none backdrop-blur-sm">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tu Correo</label>
+                                <input type="email" name="email" required placeholder="Ejemplo: adolf.info@gmail.com" class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none backdrop-blur-sm">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Mensaje</label>
+                                <textarea name="message" rows="4" required placeholder="¿Cómo puedo ayudarte?" class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none backdrop-blur-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full flex items-center justify-center py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.02]">
+                                Enviar Mensaje <i data-lucide="send" class="ml-2 w-5 h-5"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="glass-nav py-8 relative z-10 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <p class="flex items-center font-mono mb-4 md:mb-0">
+                <i data-lucide="bot" class="mr-2 w-4 h-4 text-blue-500"></i>
+                © 2026 CyberNurse. Salud + IA.
+            </p>
+            <div class="flex items-center gap-6">
+                <!-- GitHub -->
+                <a href="https://github.com/cybernurse-lab" target="_blank" class="hover:text-blue-600 transition-colors" aria-label="GitHub">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/juan-cobe%C3%B1as-478ba3163/" target="_blank" class="hover:text-blue-600 transition-colors" aria-label="LinkedIn">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <!-- Instagram (Hover Rosa) -->
+                <a href="https://www.instagram.com/cyber.nurse/" target="_blank" class="hover:text-pink-600 transition-colors" aria-label="Instagram">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <!-- TikTok (Hover Negro/Blanco + Icono Custom) -->
+                <a href="https://www.tiktok.com/@cyber.nurse" target="_blank" class="hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT -->
+    <script>
+        // 1. Inicializar Iconos Lucide
+        lucide.createIcons();
+
+        // 2. Lógica del Tema Oscuro/Claro
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        
+        // Función para cambiar tema
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Event Listeners
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // Chequear preferencia guardada o del sistema al cargar
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // 3. Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú al hacer click en un link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
