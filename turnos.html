@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- Configuración PWA (Modo App) -->
+    <!-- Configuración PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
@@ -13,49 +13,33 @@
     
     <title>CyberNurse Turnos</title>
     
-    <!-- ICONO DE LA APP (Formato SVG Inline - Solución para compatibilidad de instalación) -->
-    <!-- Se usa %23 en lugar de # para el color hexadecimal para evitar errores de URL -->
+    <!-- ICONO DE LA APP (Inline SVG para máxima compatibilidad) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234f46e5'/><path d='M368 232h-88v-88c0-13.3-10.7-24-24-24s-24 10.7-24 24v88h-88c-13.3 0-24 10.7-24 24s10.7 24 24 24h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24v-88h88c13.3 0 24-10.7 24-24s-10.7-24-24-24z' fill='%23ffffff'/></svg>">
-    
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234f46e5'/><path d='M368 232h-88v-88c0-13.3-10.7-24-24-24s-24 10.7-24 24v88h-88c-13.3 0-24 10.7-24 24s10.7 24 24 24h88v88c0 13.3 10.7 24 24 24s24-10.7 24-24v-88h88c13.3 0 24-10.7 24-24s-10.7-24-24-24z' fill='%23ffffff'/></svg>">
 
-    <!-- React & ReactDOM -->
+    <!-- React & Tailwind -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Librería para generar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- Configuración Tailwind para Dark Mode -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        cyber: {
-                            dark: '#0f172a',
-                            primary: '#4f46e5',
-                            accent: '#8b5cf6'
-                        }
-                    }
+                    colors: { cyber: { dark: '#0f172a', primary: '#4f46e5' } }
                 }
             }
         }
     </script>
 
     <style>
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        #report-content {
-            width: 100%;
-            page-break-after: avoid; 
-            page-break-before: avoid;
-        }
+        #report-content { width: 100%; page-break-after: avoid; page-break-before: avoid; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 transition-colors duration-300">
@@ -74,27 +58,47 @@
             Download: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
             Menu: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
             X: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 6 6 18"/><path d="m6 6 18 18"/></svg>,
-            Users: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
             Plus: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="M12 5v14"/></svg>,
             Briefcase: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
             ChevronRight: ({size=16}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>,
             ChevronLeft: ({size=16}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>,
             FileText: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>,
-            Activity: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Activity: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>,
+            Layers: ({size=16, className=""}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
         };
 
+        // --- CONFIGURACIÓN DE TURNOS (Con Combinaciones) ---
         const SHIFT_TYPES = {
+            // Básicos
             L: { code: 'L', label: 'Libre', hours: 0, bg: 'bg-white dark:bg-slate-800', border: 'border-slate-200 dark:border-slate-700', text: 'text-slate-400 dark:text-slate-500', icon: null },
-            M: { code: 'M', label: 'Mañana', hours: 6, start: 7, end: 13, bg: 'bg-orange-500', border: 'border-orange-600', text: 'text-white', lightBg: 'bg-orange-50 dark:bg-orange-900/20', lightText: 'text-orange-600 dark:text-orange-400', icon: <Icons.Sunrise size={18} /> },
-            T: { code: 'T', label: 'Tarde', hours: 6, start: 13, end: 19, bg: 'bg-blue-500', border: 'border-blue-600', text: 'text-white', lightBg: 'bg-blue-50 dark:bg-blue-900/20', lightText: 'text-blue-600 dark:text-blue-400', icon: <Icons.Sunset size={18} /> },
-            GD: { code: 'GD', label: 'G. Diurna', hours: 12, start: 7, end: 19, bg: 'bg-emerald-500', border: 'border-emerald-600', text: 'text-white', lightBg: 'bg-emerald-50 dark:bg-emerald-900/20', lightText: 'text-emerald-600 dark:text-emerald-400', icon: <Icons.Sun size={18} /> },
-            GN: { code: 'GN', label: 'G. Nocturna', hours: 12, start: 19, end: 7, bg: 'bg-purple-600', border: 'border-purple-700', text: 'text-white', lightBg: 'bg-purple-50 dark:bg-purple-900/20', lightText: 'text-purple-600 dark:text-purple-400', icon: <Icons.Moon size={18} /> },
+            M: { code: 'M', label: 'Mañana', hours: 6, components: ['M'], bg: 'bg-orange-500', border: 'border-orange-600', text: 'text-white', lightBg: 'bg-orange-50 dark:bg-orange-900/20', lightText: 'text-orange-600 dark:text-orange-400', icon: <Icons.Sunrise size={18} /> },
+            T: { code: 'T', label: 'Tarde', hours: 6, components: ['T'], bg: 'bg-blue-500', border: 'border-blue-600', text: 'text-white', lightBg: 'bg-blue-50 dark:bg-blue-900/20', lightText: 'text-blue-600 dark:text-blue-400', icon: <Icons.Sunset size={18} /> },
+            GD: { code: 'GD', label: 'G. Diurna', hours: 12, components: ['GD'], bg: 'bg-emerald-500', border: 'border-emerald-600', text: 'text-white', lightBg: 'bg-emerald-50 dark:bg-emerald-900/20', lightText: 'text-emerald-600 dark:text-emerald-400', icon: <Icons.Sun size={18} /> },
+            GN: { code: 'GN', label: 'G. Nocturna', hours: 12, components: ['GN'], bg: 'bg-purple-600', border: 'border-purple-700', text: 'text-white', lightBg: 'bg-purple-50 dark:bg-purple-900/20', lightText: 'text-purple-600 dark:text-purple-400', icon: <Icons.Moon size={18} /> },
+            
+            // Combinados (Se usan para pintar, pero se descomponen para estadística)
+            MT: { 
+                code: 'MT', label: 'M + T', hours: 12, components: ['M', 'T'],
+                bg: 'bg-indigo-500', border: 'border-indigo-600', text: 'text-white', 
+                icon: <div className="flex -space-x-1"><Icons.Sunrise size={14}/><Icons.Sunset size={14}/></div> 
+            },
+            MGN: { 
+                code: 'MGN', label: 'M + G.N', hours: 18, components: ['M', 'GN'],
+                bg: 'bg-fuchsia-600', border: 'border-fuchsia-700', text: 'text-white',
+                icon: <div className="flex -space-x-1"><Icons.Sunrise size={14}/><Icons.Moon size={14}/></div>
+            },
+            TGN: { 
+                code: 'TGN', label: 'T + G.N', hours: 18, components: ['T', 'GN'],
+                bg: 'bg-violet-600', border: 'border-violet-700', text: 'text-white',
+                icon: <div className="flex -space-x-1"><Icons.Sunset size={14}/><Icons.Moon size={14}/></div>
+            }
         };
 
         const TARGET_HOURS = 150;
         const WEEKDAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
         const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
+        // --- REPORT MODAL ---
         function ReportModal({ nurse, monthIndex, year, stats, onClose, daysInMonth, startDayOffset, getShiftKey }) {
             const downloadPDF = () => {
                 const element = document.getElementById('report-content');
@@ -121,7 +125,6 @@
                         <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-slate-100">
                             <div id="report-content" className="bg-white shadow-lg mx-auto p-6 text-slate-900 flex flex-col" style={{ maxWidth: '210mm', minHeight: '270mm' }}>
                                 
-                                {/* Header Reporte con Branding */}
                                 <div className="text-center border-b-2 border-slate-800 pb-3 mb-5">
                                     <div className="flex items-center justify-center gap-2 mb-1 text-slate-400">
                                         <Icons.Activity size={16} />
@@ -131,7 +134,6 @@
                                     <p className="text-slate-500 text-xs mt-1">Servicio de Enfermería</p>
                                 </div>
 
-                                {/* ... (Contenido igual al anterior) ... */}
                                 <div className="flex justify-between mb-5 bg-slate-50 p-3 rounded-lg border border-slate-200">
                                     <div>
                                         <p className="text-[10px] text-slate-500 uppercase font-bold">Personal</p>
@@ -166,6 +168,7 @@
                                             </div>
                                         ))}
                                     </div>
+                                    <p className="text-[9px] text-slate-400 mt-2 italic text-center">* Los turnos combinados (ej. Mañana+Tarde) se han desglosado en sus categorías respectivas.</p>
                                 </div>
 
                                 <div className="mb-6 flex-1">
@@ -178,10 +181,28 @@
                                             const shiftKey = getShiftKey(year, monthIndex, day);
                                             const code = nurse.schedule[shiftKey] || '';
                                             const isFilled = code !== 'L' && code !== '';
+                                            
+                                            // Visualización en PDF para Combinados
+                                            let content = null;
+                                            if (isFilled) {
+                                                const sType = SHIFT_TYPES[code];
+                                                if (sType.components.length > 1) {
+                                                    content = (
+                                                        <div className="flex flex-col gap-0.5 mt-2 w-full items-center">
+                                                            {sType.components.map(comp => (
+                                                                <span key={comp} className={`text-[7px] font-bold px-1 rounded ${SHIFT_TYPES[comp].bg} text-white w-full text-center block`}>{SHIFT_TYPES[comp].code}</span>
+                                                            ))}
+                                                        </div>
+                                                    );
+                                                } else {
+                                                    content = <span className={`mt-3 text-[10px] font-bold px-1.5 py-0.5 rounded ${sType.bg} text-white`}>{code}</span>;
+                                                }
+                                            }
+
                                             return (
-                                                <div key={day} className="border-b border-r border-slate-300 p-0.5 h-10 flex flex-col items-center justify-start relative">
+                                                <div key={day} className="border-b border-r border-slate-300 p-0.5 h-12 flex flex-col items-center justify-start relative">
                                                     <span className="text-[8px] text-slate-400 absolute top-0.5 left-1">{day}</span>
-                                                    {isFilled && <span className={`mt-2.5 text-[10px] font-bold px-1 py-px rounded ${SHIFT_TYPES[code].bg} text-white`}>{code}</span>}
+                                                    {content}
                                                 </div>
                                             )
                                         })}
@@ -210,7 +231,7 @@
 
         function App() {
             const [nurses, setNurses] = useState(() => {
-                const saved = localStorage.getItem('nursingScheduleData_v2');
+                const saved = localStorage.getItem('nursingScheduleData_v3');
                 return saved ? JSON.parse(saved) : [{ id: 1, name: 'Mi Calendario', schedule: {} }];
             });
             const [activeNurseId, setActiveNurseId] = useState(1);
@@ -224,7 +245,7 @@
                 return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             });
 
-            useEffect(() => { localStorage.setItem('nursingScheduleData_v2', JSON.stringify(nurses)); }, [nurses]);
+            useEffect(() => { localStorage.setItem('nursingScheduleData_v3', JSON.stringify(nurses)); }, [nurses]);
             useEffect(() => {
                 localStorage.setItem('darkModePreference', JSON.stringify(darkMode));
                 if (darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
@@ -273,20 +294,32 @@
                 newDate.setFullYear(parseInt(e.target.value));
                 setCurrentDate(newDate);
             };
+            
+            // --- CÁLCULO MEJORADO PARA COMBINADOS ---
             const calculateStats = () => {
                 let total = 0;
                 const counts = { M: 0, T: 0, GD: 0, GN: 0 };
+                
                 for(let d = 1; d <= daysInMonth; d++) {
                     const k = getShiftKey(currentYear, currentMonth, d);
                     const code = activeNurse.schedule[k];
+                    
                     if (code && SHIFT_TYPES[code]) {
-                        total += SHIFT_TYPES[code].hours;
-                        if (counts[code] !== undefined) counts[code]++;
+                        const shiftData = SHIFT_TYPES[code];
+                        total += shiftData.hours;
+                        
+                        // Desglosar componentes (Ej: MT -> M + T)
+                        if (shiftData.components) {
+                            shiftData.components.forEach(comp => {
+                                if (counts[comp] !== undefined) counts[comp]++;
+                            });
+                        }
                     }
                 }
                 return { total, counts };
             };
             const stats = calculateStats();
+            
             const exportToCalendar = () => {
                 let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//CyberNurse//Turnos//ES\n";
                 for(let d = 1; d <= daysInMonth; d++) {
@@ -294,11 +327,13 @@
                     const code = activeNurse.schedule[k];
                     if (code && code !== 'L' && SHIFT_TYPES[code]) {
                         const s = SHIFT_TYPES[code];
-                        const start = new Date(currentYear, currentMonth, d, s.start, 0);
-                        const end = new Date(currentYear, currentMonth, d, s.end, 0);
-                        if (s.end < s.start) end.setDate(end.getDate() + 1);
+                        // Para ICS, si es combinado, creamos un evento "largo"
+                        const start = new Date(currentYear, currentMonth, d, s.start !== undefined ? s.start : 7, 0); // Default a las 7am
+                        const durationHours = s.hours;
+                        const end = new Date(start.getTime() + durationHours * 60 * 60 * 1000); // Calcular fin basado en duración
+                        
                         const fmt = (date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-                        ics += `BEGIN:VEVENT\nSUMMARY:Turno ${s.label}\nDTSTART:${fmt(start)}\nDTEND:${fmt(end)}\nDESCRIPTION:${s.label} (${s.hours}h)\nEND:VEVENT\n`;
+                        ics += `BEGIN:VEVENT\nSUMMARY:Turno ${s.label}\nDTSTART:${fmt(start)}\nDTEND:${fmt(end)}\nDESCRIPTION:Turno ${s.label} (${s.hours}h)\nEND:VEVENT\n`;
                     }
                 }
                 ics += "END:VCALENDAR";
@@ -313,34 +348,19 @@
                     {showReport && (<ReportModal nurse={activeNurse} monthIndex={currentMonth} year={currentYear} stats={stats} onClose={() => setShowReport(false)} daysInMonth={daysInMonth} startDayOffset={startDayOffset} getShiftKey={getShiftKey} />)}
                     {showSidebar && <div className="fixed inset-0 bg-black/60 z-30 md:hidden backdrop-blur-sm" onClick={() => setShowSidebar(false)}></div>}
 
-                    {/* SIDEBAR con Branding CyberNurse */}
+                    {/* SIDEBAR */}
                     <aside className={`fixed md:relative w-72 h-full bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-2xl md:shadow-none z-40 transition-transform duration-300 flex flex-col ${showSidebar ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
                         <div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-700 text-white shadow-lg relative overflow-hidden">
-                            {/* Decoración de fondo */}
-                            <div className="absolute -right-6 -top-6 text-white/10 rotate-12 pointer-events-none">
-                                <Icons.Activity size={140} />
-                            </div>
-                            
+                            <div className="absolute -right-6 -top-6 text-white/10 rotate-12 pointer-events-none"><Icons.Activity size={140} /></div>
                             <div className="relative z-10">
-                                <div className="flex justify-between items-center mb-1">
-                                     <h1 className="text-xl font-bold flex items-center gap-2 tracking-tight">
-                                        CyberNurse
-                                    </h1>
-                                    <button onClick={() => setShowSidebar(false)} className="md:hidden text-white/80 hover:text-white"><Icons.X /></button>
-                                </div>
-                                <p className="text-indigo-100 text-sm font-medium opacity-90 flex items-center gap-1">
-                                    <span className="bg-white/20 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide">App</span> 
-                                    Gestor de Turnos
-                                </p>
+                                <div className="flex justify-between items-center mb-1"><h1 className="text-xl font-bold flex items-center gap-2 tracking-tight">CyberNurse</h1><button onClick={() => setShowSidebar(false)} className="md:hidden text-white/80 hover:text-white"><Icons.X /></button></div>
+                                <p className="text-indigo-100 text-sm font-medium opacity-90 flex items-center gap-1"><span className="bg-white/20 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide">App</span> Gestor de Turnos</p>
                             </div>
                         </div>
-
                         <div className="flex-1 overflow-y-auto p-4 space-y-2">
                             <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 px-2">Perfiles</div>
                             {nurses.map(nurse => {
-                                let h = 0;
-                                if(nurse.id === activeNurseId) h = stats.total;
-                                else { for(let d = 1; d <= daysInMonth; d++) { const k = getShiftKey(currentYear, currentMonth, d); const c = nurse.schedule[k]; if (c && SHIFT_TYPES[c]) h += SHIFT_TYPES[c].hours; } }
+                                let h = 0; if(nurse.id === activeNurseId) h = stats.total; else { for(let d = 1; d <= daysInMonth; d++) { const k = getShiftKey(currentYear, currentMonth, d); const c = nurse.schedule[k]; if (c && SHIFT_TYPES[c]) h += SHIFT_TYPES[c].hours; } }
                                 const isActive = nurse.id === activeNurseId;
                                 return (
                                     <div key={nurse.id} onClick={() => { setActiveNurseId(nurse.id); setShowSidebar(false); }} className={`group relative p-3 rounded-xl border cursor-pointer transition-all duration-200 ${isActive ? 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-700 shadow-sm' : 'bg-transparent border-transparent hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
@@ -352,10 +372,7 @@
                             })}
                             <button onClick={addNurse} className="w-full py-3 mt-4 border border-dashed border-slate-300 dark:border-slate-600 rounded-xl text-slate-500 dark:text-slate-400 hover:border-indigo-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2 text-sm font-medium"><Icons.Plus size={16} /> Nuevo Perfil</button>
                         </div>
-                        <div className="p-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
-                            <span className="text-xs font-medium text-slate-500">Apariencia</span>
-                            <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 shadow-sm hover:scale-105 transition-transform">{darkMode ? <Icons.Sun size={18} /> : <Icons.Moon size={18} />}</button>
-                        </div>
+                        <div className="p-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50"><span className="text-xs font-medium text-slate-500">Apariencia</span><button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 shadow-sm hover:scale-105 transition-transform">{darkMode ? <Icons.Sun size={18} /> : <Icons.Moon size={18} />}</button></div>
                     </aside>
 
                     {/* MAIN CONTENT */}
@@ -365,15 +382,8 @@
                                 <div className="flex items-center gap-3 w-full md:flex-1 overflow-hidden">
                                     <button onClick={() => setShowSidebar(true)} className="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"><Icons.Menu /></button>
                                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-md shrink-0">{activeNurse.name.charAt(0)}</div>
-                                    <div className="flex-1 min-w-0">
-                                        <input value={activeNurse.name} onChange={(e) => setNurses(nurses.map(n => n.id === activeNurseId ? {...n, name: e.target.value} : n))} className="bg-transparent text-lg font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-b-2 border-indigo-500 w-full truncate" />
-                                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Enfermera/o de Turno</p>
-                                    </div>
-                                    {/* Etiqueta Branding en Header (Visible en Desktop) */}
-                                    <div className="hidden md:flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/20 px-2 py-1 rounded text-indigo-600 dark:text-indigo-400">
-                                        <Icons.Activity size={14} />
-                                        <span className="text-[10px] uppercase font-bold tracking-widest">CyberNurse Tools</span>
-                                    </div>
+                                    <div className="flex-1 min-w-0"><input value={activeNurse.name} onChange={(e) => setNurses(nurses.map(n => n.id === activeNurseId ? {...n, name: e.target.value} : n))} className="bg-transparent text-lg font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-b-2 border-indigo-500 w-full truncate" /><p className="text-xs text-slate-500 dark:text-slate-400 truncate">Enfermera/o de Turno</p></div>
+                                    <div className="hidden md:flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/20 px-2 py-1 rounded text-indigo-600 dark:text-indigo-400"><Icons.Activity size={14} /><span className="text-[10px] uppercase font-bold tracking-widest">CyberNurse Tools</span></div>
                                 </div>
                                 <div className="flex items-center justify-between w-full md:w-auto gap-2">
                                     <div className="flex items-center bg-slate-100 dark:bg-slate-700 rounded-lg p-1 flex-1 md:flex-none justify-center gap-1">
@@ -396,13 +406,44 @@
                                 {[{ k: 'M', l: 'Mañanas', c: SHIFT_TYPES.M.lightText, bg: SHIFT_TYPES.M.lightBg }, { k: 'T', l: 'Tardes', c: SHIFT_TYPES.T.lightText, bg: SHIFT_TYPES.T.lightBg }, { k: 'GD', l: 'G. Día', c: SHIFT_TYPES.GD.lightText, bg: SHIFT_TYPES.GD.lightBg }, { k: 'GN', l: 'G. Noche', c: SHIFT_TYPES.GN.lightText, bg: SHIFT_TYPES.GN.lightBg }].map(item => (<div key={item.k} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-transparent ${item.bg} ${item.c} shrink-0`}><span className="font-bold">{stats.counts[item.k]}</span> {item.l}</div>))}
                             </div>
                         </header>
+
+                        {/* TOOLBAR MEJORADO CON SECCIONES */}
                         <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b border-slate-200 dark:border-slate-700 py-3 shadow-sm z-10 overflow-x-auto no-scrollbar">
-                            <div className="flex justify-center min-w-max px-4 gap-2 md:gap-4">
-                                {Object.entries(SHIFT_TYPES).map(([key, type]) => { if (key === 'L') return null; const isSelected = selectedShift === key; return (<button key={key} onClick={() => setSelectedShift(key)} className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-200 ${isSelected ? `${type.bg} ${type.border} text-white shadow-lg shadow-indigo-500/20 scale-105` : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}`}>{type.icon}<span className="text-xs font-bold uppercase tracking-wide">{type.label}</span></button>); })}
-                                <div className="w-px h-8 bg-slate-200 dark:bg-slate-700 mx-2"></div>
+                            <div className="flex justify-start md:justify-center min-w-max px-4 gap-4 items-center">
+                                {/* Simples */}
+                                <div className="flex gap-2">
+                                    {['M', 'T', 'GD', 'GN'].map(key => { 
+                                        const type = SHIFT_TYPES[key];
+                                        const isSelected = selectedShift === key; 
+                                        return (
+                                            <button key={key} onClick={() => setSelectedShift(key)} className={`relative flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-200 ${isSelected ? `${type.bg} ${type.border} text-white shadow-lg shadow-indigo-500/20 scale-105` : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}`}>
+                                                {type.icon}
+                                                <span className="text-xs font-bold uppercase tracking-wide">{type.label}</span>
+                                            </button>
+                                        ); 
+                                    })}
+                                </div>
+                                <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+                                {/* Combinados */}
+                                <div className="flex gap-2">
+                                    {['MT', 'MGN', 'TGN'].map(key => { 
+                                        const type = SHIFT_TYPES[key];
+                                        const isSelected = selectedShift === key; 
+                                        return (
+                                            <button key={key} onClick={() => setSelectedShift(key)} className={`relative flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-200 ${isSelected ? `${type.bg} ${type.border} text-white shadow-lg shadow-indigo-500/20 scale-105` : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}`}>
+                                                <div className="flex gap-1 items-center">
+                                                    <Icons.Layers size={14} className="opacity-50" />
+                                                    <span className="text-xs font-bold uppercase tracking-wide">{type.label}</span>
+                                                </div>
+                                            </button>
+                                        ); 
+                                    })}
+                                </div>
+                                <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
                                 <button onClick={() => setSelectedShift('L')} className={`px-4 py-2 rounded-xl border transition-all ${selectedShift === 'L' ? 'bg-slate-800 text-white shadow-lg' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20'}`}><Icons.Trash size={18} /></button>
                             </div>
                         </div>
+
                         <div className="flex-1 overflow-y-auto p-2 md:p-6 pb-20">
                             <div className="max-w-6xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col min-h-[500px]">
                                 <div className="grid grid-cols-7 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">{WEEKDAYS.map(d => <div key={d} className="py-3 text-center text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">{d}</div>)}</div>
@@ -414,10 +455,38 @@
                                         const code = activeNurse.schedule[shiftKey] || 'L';
                                         const shift = SHIFT_TYPES[code];
                                         const isFilled = code !== 'L';
+                                        
+                                        // Visualización en Calendario (Manejo de combinados)
+                                        let cellContent = null;
+                                        if (isFilled) {
+                                            if (shift.components.length > 1) {
+                                                // Es combinado: mostrar dividido
+                                                cellContent = (
+                                                    <div className="w-full flex-1 flex flex-col gap-0.5 p-0.5 animate-in zoom-in-95 duration-200">
+                                                        {shift.components.map(comp => (
+                                                            <div key={comp} className={`flex-1 rounded flex items-center justify-center gap-1 ${SHIFT_TYPES[comp].bg} text-white shadow-sm`}>
+                                                                {SHIFT_TYPES[comp].icon}
+                                                                <span className="text-[8px] md:text-[10px] font-bold leading-none">{SHIFT_TYPES[comp].label}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                );
+                                            } else {
+                                                // Es simple
+                                                cellContent = (
+                                                    <div className={`w-full flex-1 rounded-xl flex flex-col items-center justify-center gap-1 p-1 animate-in zoom-in-95 duration-200 shadow-sm ${shift.bg} text-white`}>
+                                                        {shift.icon}
+                                                        <span className="text-[10px] font-bold leading-none hidden md:block uppercase tracking-wider">{shift.label}</span>
+                                                        <span className="text-[10px] font-bold md:hidden block">{code}</span>
+                                                    </div>
+                                                );
+                                            }
+                                        }
+
                                         return (
                                             <div key={day} onClick={() => toggleShift(day)} className={`relative min-h-[90px] md:min-h-[130px] border-b border-r border-slate-200 dark:border-slate-700 p-1 md:p-2 cursor-pointer transition-colors group select-none flex flex-col items-center justify-start ${!isFilled ? 'bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700' : 'bg-white dark:bg-slate-800'}`}>
                                                 <span className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-medium mb-1 z-10 ${!isFilled ? 'text-slate-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 shadow-sm'}`}>{day}</span>
-                                                {isFilled && (<div className={`w-full flex-1 rounded-xl flex flex-col items-center justify-center gap-1 p-1 animate-in zoom-in-95 duration-200 shadow-sm ${shift.bg} text-white`}>{shift.icon}<span className="text-[10px] font-bold leading-none hidden md:block uppercase tracking-wider">{shift.label}</span><span className="text-[10px] font-bold md:hidden block">{code}</span></div>)}
+                                                {cellContent}
                                                 {!isFilled && (<div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"><Icons.Plus className="text-slate-300 dark:text-slate-600" /></div>)}
                                             </div>
                                         );
