@@ -2,14 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Calculadora de Goteo IV Pro | CyberNurse</title>
+    
+    <!-- Meta Tags para PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-title" content="Goteo Pro">
 
+    <!-- Iconos Base64 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z' fill='%23eff6ff' stroke='%232563eb' stroke-width='2'/><path d='M12 6C12 6 16 11 16 14C16 16.2091 14.2091 18 12 18C9.79086 18 8 16.2091 8 14C8 11 12 6 12 6Z' fill='%233b82f6'/></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' style='background-color: %232563eb;'><rect width='24' height='24' fill='%232563eb'/><path d='M12 6C12 6 16 11 16 14C16 16.2091 14.2091 18 12 18C9.79086 18 8 16.2091 8 14C8 11 12 6 12 6Z' fill='white'/></svg>">
 
@@ -75,8 +78,8 @@
 
         input[type=range] { -webkit-appearance: none; background: transparent; }
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
-            background: #3b82f6; margin-top: -8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); cursor: pointer;
+            -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%;
+            background: #3b82f6; margin-top: -10px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); cursor: pointer;
         }
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%; height: 4px; background: #cbd5e1; border-radius: 2px;
@@ -112,11 +115,11 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">Simulador Clínico</p>
         </header>
 
-        <!-- TARJETA 1: CALCULADORA -->
+        <!-- TARJETA 1: PLANIFICACIÓN -->
         <div class="glass-card rounded-3xl overflow-hidden shadow-lg">
             <div class="bg-blue-600 p-4 flex items-center justify-between">
                 <h2 class="text-white font-bold flex items-center gap-2">
-                    <i data-lucide="calculator" class="w-5 h-5"></i> Calcular Infusión
+                    <i data-lucide="calculator" class="w-5 h-5"></i> Planificar Infusión
                 </h2>
                 <button type="button" id="btnClear" class="text-xs bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full transition-colors font-medium">Limpiar</button>
             </div>
@@ -179,7 +182,7 @@
             </div>
         </div>
 
-        <!-- TARJETA 2: VERIFICADOR MANUAL -->
+        <!-- TARJETA 2: VERIFICADOR MANUAL (AUDITORÍA) -->
         <div class="glass-card rounded-3xl overflow-hidden shadow-lg border-t-4 border-t-amber-500">
             <div class="p-6">
                 <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2 mb-1">
@@ -188,16 +191,37 @@
                 <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Audita el goteo real al pie de cama.</p>
 
                 <div class="flex flex-col items-center gap-6">
+                    <!-- Gota Grande Manual -->
                     <div class="relative w-20 h-40 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-inner overflow-hidden">
                          <svg width="100%" height="100%" viewBox="0 0 40 100" class="absolute inset-0">
                             <line x1="20" y1="0" x2="20" y2="10" stroke="#cbd5e1" stroke-width="2" />
                             <path id="manualDrop" d="M20,10 C20,10 25,16 25,21 C25,26 20,28 20,28 C20,28 15,26 15,21 C15,16 20,10 20,10 Z" fill="#f59e0b" class="opacity-0" />
                         </svg>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-black text-amber-500" id="manualResult">--</div>
-                        <div class="text-xs font-bold text-slate-400 uppercase">GOTAS / MINUTO</div>
+
+                    <!-- Resultados Manuales -->
+                    <div class="text-center w-full">
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="text-4xl font-black text-amber-500 leading-none" id="manualResult">--</div>
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Gts / Min</div>
+                        </div>
+
+                        <!-- NUEVA SECCIÓN: Estimación de Tiempo -->
+                        <div class="mt-6 bg-amber-50 dark:bg-amber-900/10 rounded-xl p-4 border border-amber-100 dark:border-amber-800/30">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase text-left">Volumen Restante (ml)</label>
+                                <div class="flex items-center gap-3">
+                                    <input type="number" id="manualVol" placeholder="Ej: 500" class="w-24 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-800 rounded-lg px-3 py-2 text-sm font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 outline-none text-center">
+                                    <div class="flex-1 text-left border-l border-amber-200 dark:border-amber-800 pl-3">
+                                        <div class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">Termina en</div>
+                                        <div class="text-xl font-black text-slate-800 dark:text-white leading-none mt-0.5" id="manualTime">-- h -- m</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Controles -->
                     <div class="w-full space-y-4">
                         <div class="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-3">
                             <input type="range" id="manualSlider" min="10" max="150" value="60" class="w-full cursor-pointer">
@@ -221,12 +245,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar Iconos si la librería cargó
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
 
-            // Ocultar Navbar si está en modo "App Instalada"
             if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
                 document.getElementById('navbar').style.display = 'none';
             }
@@ -241,10 +261,7 @@
                 const mins = parseFloat(document.getElementById('mins').value || 0);
                 const factor = parseFloat(document.getElementById('factor').value);
 
-                if (!vol || (hrs === 0 && mins === 0)) { 
-                    alert("Por favor ingresa volumen y tiempo válidos."); 
-                    return; 
-                }
+                if (!vol || (hrs === 0 && mins === 0)) { alert("Por favor ingresa datos válidos."); return; }
 
                 const totalHours = hrs + (mins / 60);
                 const mlPerHour = vol / totalHours;
@@ -257,10 +274,8 @@
                 const animDrop = document.getElementById('animDrop');
                 const msPerDrop = 60000 / dropsPerMin;
                 
-                // Reiniciar animación
                 animDrop.style.animation = 'none'; 
-                animDrop.offsetHeight; /* Trigger reflow */
-                
+                animDrop.offsetHeight; 
                 const speed = Math.max(msPerDrop, 200);
                 animDrop.style.animation = `dropFall ${speed}ms linear infinite`;
                 
@@ -277,26 +292,62 @@
             if (btnClear) btnClear.addEventListener('click', clearCalculator);
 
 
-            // --- LÓGICA VERIFICADOR MANUAL ---
+            // --- LÓGICA VERIFICADOR MANUAL & TIEMPO RESTANTE ---
             const manualSlider = document.getElementById('manualSlider');
             const manualDrop = document.getElementById('manualDrop');
             const manualResult = document.getElementById('manualResult');
             const tapBtn = document.getElementById('tapBtn');
             const btnResetManual = document.getElementById('btnResetManual');
+            const manualVolInput = document.getElementById('manualVol');
+            const manualTimeDisplay = document.getElementById('manualTime');
             let tapTimes = [];
+            let currentManualGts = 60; // Valor inicial
 
-            function setManualSpeed(gtsMin) {
+            // Función centralizada para actualizar todo lo manual
+            function updateManualUI(gtsMin) {
+                currentManualGts = gtsMin;
                 manualResult.innerText = Math.round(gtsMin);
                 manualSlider.value = gtsMin;
+                
+                // Animación
                 const ms = 60000 / gtsMin;
                 manualDrop.style.animation = 'none'; 
                 manualDrop.offsetHeight;
                 manualDrop.style.animation = `dropFall ${ms}ms linear infinite`;
+
+                // Calcular Tiempo Restante
+                calculateRemainingTime();
             }
+
+            function calculateRemainingTime() {
+                const vol = parseFloat(manualVolInput.value);
+                const factor = parseFloat(document.getElementById('factor').value); // Usa el factor seleccionado arriba
+                const gtsMin = currentManualGts;
+
+                if (vol > 0 && gtsMin > 0) {
+                    // Formula: Tiempo(min) = (Volumen * Factor) / GtsMin
+                    const totalMinutes = (vol * factor) / gtsMin;
+                    
+                    const hours = Math.floor(totalMinutes / 60);
+                    const minutes = Math.round(totalMinutes % 60);
+                    
+                    manualTimeDisplay.innerText = `${hours}h ${minutes}m`;
+                    manualTimeDisplay.classList.add('text-blue-600', 'dark:text-blue-400');
+                } else {
+                    manualTimeDisplay.innerText = "-- h -- m";
+                    manualTimeDisplay.classList.remove('text-blue-600', 'dark:text-blue-400');
+                }
+            }
+
+            // Listeners Manuales
+            if (manualVolInput) manualVolInput.addEventListener('input', calculateRemainingTime);
+            
+            // Si cambian el factor arriba, también actualiza el cálculo de abajo
+            document.getElementById('factor').addEventListener('change', calculateRemainingTime);
 
             if (manualSlider) {
                 manualSlider.addEventListener('input', (e) => { 
-                    setManualSpeed(e.target.value); 
+                    updateManualUI(e.target.value);
                     tapTimes = []; 
                 });
             }
@@ -308,7 +359,7 @@
                     if (tapTimes.length > 0 && (now - tapTimes[tapTimes.length - 1] > 2000)) { tapTimes = []; }
                     
                     tapTimes.push(now);
-                    if (tapTimes.length > 5) tapTimes.shift(); // Mantener solo últimos 5 taps
+                    if (tapTimes.length > 5) tapTimes.shift();
 
                     if (tapTimes.length > 1) {
                         let intervals = [];
@@ -317,7 +368,7 @@
                         }
                         const avgMs = intervals.reduce((a,b)=>a+b) / intervals.length;
                         const bpm = 60000 / avgMs;
-                        setManualSpeed(bpm);
+                        updateManualUI(bpm);
                     }
                     
                     tapBtn.classList.add('bg-amber-700');
@@ -327,15 +378,18 @@
 
             function resetManual() {
                 tapTimes = []; 
+                manualVolInput.value = "";
+                manualTimeDisplay.innerText = "-- h -- m";
                 manualResult.innerText = "--"; 
                 manualDrop.style.animation = 'none'; 
                 manualSlider.value = 60;
+                currentManualGts = 0;
             }
 
             if (btnResetManual) btnResetManual.addEventListener('click', resetManual);
 
 
-            // --- TEMA DARK MODE ---
+            // --- TEMA ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             function toggleTheme() {
                 if (document.documentElement.classList.contains('dark')) {
@@ -349,14 +403,12 @@
 
             if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
 
-            // Cargar preferencia guardada
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark');
             }
 
-            // Inicializar estado manual
             resetManual();
         });
     </script>
